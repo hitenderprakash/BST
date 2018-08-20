@@ -1,8 +1,8 @@
 // BST.cpp : Defines the entry point for the console application.
 //
-// Hitender Prakash (hitenderprakash@gmail.com)
-// Driver Code : Only For the puspose of Testing functions in BSLib
-// May not have proper error handling
+//Hitender Prakash (hitenderprakash@gmail.com)
+//Driver Code : Only For the puspose of Testing functions in BSLib
+//May not have proper error handling
 //
 
 //#include "stdafx.h"
@@ -53,7 +53,7 @@ int main()
 	cout << "\nGenerated Tree with val: 1,2,3......10";
 	
 	TreeNode<Item> *pTestPtr = nullptr;
-	
+
 	pTestPtr = searchNodeByValueInBST(root, Item(2));
 	cout << "\n Searching for node with val=2...";
 	if (pTestPtr) {cout << "\nYes, Found: " << pTestPtr->val;}
@@ -132,8 +132,19 @@ int main()
 	if (root_2 && (root_2 == p)) {
 		cout << "\nCreate new Tree 2 from scratch with adding node successfull, new Tree's root is: " << root_2->val;
 	}
-	cin.ignore();
 
+	/*vector<TreeNodeAt2DimPlane<Item>> vec;
+	int ret = recordPrintableCoordinatesOfBST(root, 0, 0, vec);
+	for (TreeNodeAt2DimPlane<Item> i : vec) {
+		cout << i;
+	}*/
+
+	cout << "\nMax depth: " << getMaxDepthOfBST(root);
+	cout << "\nTree lools like:";
+	cout << "\n===========================================";
+	printBSTOnConsole(root,3,2);
+
+	cin.ignore();
     return 0;
 }
 

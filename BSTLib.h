@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <iostream>
 #include <algorithm>
+#include <string>
+#include <iomanip>
 
 #define SUCCESS 1
 #define ERROR 0
@@ -295,6 +297,76 @@ namespace BSTLIB {
 	int deleteNodeByValueInBST(TreeNode<nodeObject> *pRoot, nodeObject node_value) {
 		TreeNode<nodeObject> *pNodeToBeDeleted = searchNodeByValueInBST(pRoot, node_value);
 		return deleteNodeByAddressInBST(pRoot, pNodeToBeDeleted);
+	}
+
+	template <typename nodeObject>
+	int getMaxDepthOfBST(TreeNode<nodeObject> *pRoot) {
+		if (!pRoot) {
+			return 0;
+		}
+		return max(getMaxDepthOfBST(pRoot->Left), getMaxDepthOfBST(pRoot->Right))+1;
+	}
+
+	
+	template <typename nodeObject>
+	class TreeNodeAt2DimPlane {
+	public:
+		nodeObject value;
+		int X;
+		int Y;
+		TreeNodeAt2DimPlane(nodeObject val, int x, int y):value(val),X(x),Y(y){}
+		friend ostream& operator << (ostream& os, const TreeNodeAt2DimPlane& it) {
+			os <<"\n("<<it.X<<" , "<<it.Y<<"): " <<it.value;
+			return os;
+		}
+	};
+
+	template <typename nodeObject>
+	int recordPrintableCoordinatesOfBST(TreeNode<nodeObject> *pRoot, int x, int y, vector<TreeNodeAt2DimPlane<nodeObject>> &vec){
+		if (!pRoot) {
+			return ERROR; //this is just to handle very first call if root is null, we dont call function on null node in recursin
+		}
+		int curX = x;
+		if (pRoot->Left) {
+			curX = recordPrintableCoordinatesOfBST(pRoot->Left, x, y + 1, vec) + 1;
+		}
+		vec.push_back(TreeNodeAt2DimPlane<nodeObject>(pRoot->val, curX, y));
+
+		if (pRoot->Right) {
+			curX = recordPrintableCoordinatesOfBST(pRoot->Right, curX + 1, y + 1, vec);
+		}
+		return curX;
+		/*
+		int curX=x;
+		if(!pRoot){
+			return curX-1;
+		}
+		curX = recordPrintableCoordinatesOfBST(pRoot->Left, x, y + 1, vec) + 1;
+		vec.push_back(TreeNodeAt2DimPlane(pRoot->val, curX, curY));
+		return recordPrintableCoordinatesOfBST(pRoot->Right, curX + 1, y + 1, vec) ;
+		*/
+	}
+
+	template <typename nodeObject>
+	void printBSTOnConsole(TreeNode<nodeObject> *pRoot,int scaleX, int scaleY) {
+		vector<TreeNodeAt2DimPlane<nodeObject>> vec;
+		recordPrintableCoordinatesOfBST(pRoot, 0, 0, vec);
+		int cols = vec.size();
+		int rows = getMaxDepthOfBST(pRoot);
+		if (rows <= 0) { return; }
+		rows = rows * scaleY;//better print
+		string filler(scaleX, '.');
+		vector<vector<string>> Table(rows, vector<string>(cols, filler));
+		for (TreeNodeAt2DimPlane<nodeObject> i : vec) {
+			string valstring = to_string(i.value.value);
+			Table[i.Y*scaleY][i.X] = valstring;
+		}
+		for (unsigned int i = 0; i < Table.size(); i++) {
+			cout << "\n";
+			for (unsigned int j = 0; j < Table[0].size(); j++) {
+				cout << Table[i][j] << std::setw(3) << std::setfill(' ') << std::right;
+			}
+		}
 	}
 }
 #endif 
