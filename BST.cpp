@@ -28,7 +28,7 @@ public:
 	}
 
 	friend bool operator <= (const Item& a, const Item& b) {
-		return (a<b || a==b);
+		return (a<b || a == b);
 	}
 
 	friend bool operator >= (const Item& a, const Item& b) {
@@ -46,17 +46,17 @@ int main()
 {
 	std::vector<Item> input;
 	for (int i = 0; i < 10; i++) {
-		input.push_back(Item(i+1));
+		input.push_back(Item(i + 1));
 	}
 
 	TreeNode<Item> *root = generateBSTFromSortedNodesList(input, 0, input.size() - 1);
 	cout << "\nGenerated Tree with val: 1,2,3......10";
-	
+
 	TreeNode<Item> *pTestPtr = nullptr;
 
 	pTestPtr = searchNodeByValueInBST(root, Item(2));
 	cout << "\n Searching for node with val=2...";
-	if (pTestPtr) {cout << "\nYes, Found: " << pTestPtr->val;}
+	if (pTestPtr) { cout << "\nYes, Found: " << pTestPtr->val; }
 	else { cout << "\nNot found any node with val: 2"; }
 
 	cout << "\nAdding node with val: 15";
@@ -87,7 +87,7 @@ int main()
 	vector<TreeNode<Item>*> PreOrderPtList;
 	getBSTPreOrderTraversalTreeNodePtrList(root, PreOrderPtList);
 	cout << "\nPreOrderPtList: ";
-	for (TreeNode<Item>* i : PreOrderPtList) { cout << i->val<<" "; }
+	for (TreeNode<Item>* i : PreOrderPtList) { cout << i->val << " "; }
 
 	vector<Item> PreOrderList = getBSTPreOrderTraversalNodeList(root);
 	cout << "\nPreOrderList: ";
@@ -97,7 +97,7 @@ int main()
 	vector<TreeNode<Item>*> InOrderPtList;
 	getBSTInOrderTraversalTreeNodePtrList(root, InOrderPtList);
 	cout << "\nIordePtrList: ";
-	for (TreeNode<Item>* i : InOrderPtList) { cout << i->val<<" "; }
+	for (TreeNode<Item>* i : InOrderPtList) { cout << i->val << " "; }
 
 	vector<Item> InOrderList = getBSTInOrderTraversalNodeList(root);
 	cout << "\nInOrderList: ";
@@ -106,13 +106,13 @@ int main()
 	vector<TreeNode<Item>*> PostOrderPtList;
 	getBSTPostOrderTraversalTreeNodePtrList(root, PostOrderPtList);
 	cout << "\nPostOrderPtList: ";
-	for (TreeNode<Item>* i : PostOrderPtList) { cout << i->val<<" "; }
+	for (TreeNode<Item>* i : PostOrderPtList) { cout << i->val << " "; }
 
 	vector<Item> PostOrderList = getBSTPostOrderTraversalNodeList(root);
 	cout << "\nPostOrderList: ";
 	displayList(PostOrderList);
 
-	
+
 	TreeNode<Item> *pt = getPtrToPrevNodeInSortedOrderInBST(searchNodeByValueInBST(root, Item(6)));
 	if (pt) { cout << "\nPrev of 6 is: " << pt->val; }
 
@@ -126,7 +126,7 @@ int main()
 	cout << "\nThe Smallest node in tree: ";
 	pt = getPtrToSmallestNodeInBST(root);
 	if (pt) { cout << pt->val; }
-	
+
 	TreeNode<Item> *root_2 = nullptr;
 	TreeNode<Item> *p = addNewNodeByValueInBST(root_2, Item(100));
 	if (root_2 && (root_2 == p)) {
@@ -136,15 +136,15 @@ int main()
 	/*vector<TreeNodeAt2DimPlane<Item>> vec;
 	int ret = recordPrintableCoordinatesOfBST(root, 0, 0, vec);
 	for (TreeNodeAt2DimPlane<Item> i : vec) {
-		cout << i;
+	cout << i;
 	}*/
 
 	cout << "\nMax depth: " << getMaxDepthOfBST(root);
 	cout << "\nTree lools like:";
 	cout << "\n===========================================";
-	printBSTOnConsole(root,3,2);
+	printBSTOnConsole(root);
 
 	cin.ignore();
-    return 0;
+	return 0;
 }
 
